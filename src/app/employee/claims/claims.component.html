@@ -1,0 +1,27 @@
+<md-card *ngIf="claims && claims.length > 0">
+  <md-card-title>Заявки</md-card-title>
+  <md-list *ngFor="let item of claims; let i = index">
+    <md-list-item>
+      {{i + 1 }}
+      <p></p>
+      {{item?.vacation?.startDate | date:"longDate"}}
+      <p></p>
+      {{item?.vacation?.count }} днів
+      <p></p>
+    </md-list-item>
+  </md-list>
+</md-card>
+
+<md-card>
+  <p [style.color]="'red'" *ngIf="error"> {{error}}</p>
+  <md-card-title>Створити заявку</md-card-title>
+  <md-input-container style="width: 100%;">
+    <input type="date" required mdInput style="width: 100%;" (change)="onChange($event.target.value)" [(ngModel)]="startDate">
+  </md-input-container>
+  <md-select placeholder="К-сть днів" [(ngModel)]="count">
+    <md-option *ngFor="let number of array; let i = index" [value]="i">{{ i + 1 }}</md-option>
+  </md-select>
+  <md-card-actions>
+    <button md-raised-button color="accent" (click)="createClaim()">Створити</button>
+  </md-card-actions>
+</md-card>

@@ -1,0 +1,24 @@
+<md-card *ngIf="claims && claims.length > 0">
+  <md-card-title>Заявки співробітників <button md-raised-button color="accent" (click)="update()">Оновити</button> </md-card-title>
+  <p [style.color]="'red'" *ngIf="error"> {{error}}</p>
+  <md-list *ngFor="let item of claims; let i = index">
+    <md-list-item>
+      {{i + 1 }}
+      <p></p>
+      {{item?.user?.name }}
+      <p></p>
+      {{item?.vacation?.startDate | date:"longDate"}}
+      <p></p>
+      {{item?.vacation?.count }} днів
+      <p></p>
+      <div [style.flex-grow]="'10'"></div>
+      <button md-raised-button color="accent" (click)="approveClaim(item)">Підтвердити</button>
+      <span>&emsp;</span>
+      <button md-raised-button color="warn" (click)="declineClaim(item)">Відхилити</button>
+    </md-list-item>
+  </md-list>
+</md-card>
+
+<md-card *ngIf="!claims || !claims?.length > 0">
+  <md-card-title>Заявок немає <button md-raised-button color="accent" (click)="update()">Оновити</button> </md-card-title>
+</md-card>
